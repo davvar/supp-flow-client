@@ -1,14 +1,26 @@
+import axios from 'axios';
 import { useEffect } from 'react';
 import { Button, Form, FormControl, Nav, Navbar } from 'react-bootstrap';
 import { Link, Route, Switch, useHistory } from 'react-router-dom';
 import { About, Dashboard, SignIn } from './pages';
+import { ErrorCode } from './types/ErrorCode';
 
 function App() {
   const history = useHistory()
 
-  async function getProfile() {
-
-  }
+  useEffect(() => {
+    getLoggedInUser()
+    async function getLoggedInUser() {
+      try {
+        await axios.get('/auth/me')
+      } catch (err) {
+        console.log({ err });
+        if (err?.response?.status === ErrorCode.Unauthorized) {
+          history.replace('/sign-in')
+        }
+      }
+    }
+  }, [history])
 
   useEffect(() => {}, [])
 

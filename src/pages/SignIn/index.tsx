@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { ReactElement, useEffect, useState } from 'react';
+import React, { ReactElement, useState } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import { useHistory } from 'react-router-dom';
@@ -18,9 +18,6 @@ export const SignIn = (): ReactElement => {
   const { register, handleSubmit } = useForm()
   const [validated, setValidated] = useState(false)
 
-  useEffect(() => {
-    axiosInstance.get('/profile').then(console.log, console.log)
-  }, [])
 
   function login(event: any) {
     event.preventDefault()
